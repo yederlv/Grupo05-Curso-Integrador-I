@@ -10,13 +10,13 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Yeder LV
+ * @author Usuario
  */
 public class DatabaseConnection {
     
-    private static final String URL = "jdbc:mysql://localhost:3306/veterinaria";
+    private static final String URL = "jdbc:mysql://localhost:3306/test";
     private static final String USER = "root";
-    private static final String PASSWORD = "password";
+    private static final String PASSWORD = "dulce";
     private static Connection connection = null;
 
     public static Connection getConnection() {
@@ -36,10 +36,30 @@ public class DatabaseConnection {
         if (connection != null) {
             try {
                 connection.close();
+                connection = null;
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static boolean isConnectionValid() {
+        try {
+            return connection != null && connection.isValid(2);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static void main(String[] args) {
+        Connection conn = getConnection();
+        if (isConnectionValid()) {
+            System.out.println("La conexión es válida.");
+        } else {
+            System.out.println("La conexión no es válida.");
+        }
+        closeConnection();
     }
     
 }
