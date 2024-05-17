@@ -4,6 +4,8 @@
  */
 package view;
 
+import main.java.view.*;
+
 /**
  *
  * @author Usuario
@@ -177,6 +179,7 @@ public class viewMenu extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(viewMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
