@@ -24,11 +24,15 @@ public class ClienteDAO {
     }
 
     public void addCliente(Cliente cliente) {
-        String sql = "INSERT INTO clientes (nombre, direccion, telefono) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO clientes (nombre, apellido, direccion, telefono,codDocumento, email, sexo ) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, cliente.getNombre());
-            stmt.setString(2, cliente.getDireccion());
-            stmt.setString(3, cliente.getTelefono());
+            stmt.setString(2, cliente.getApellido());
+            stmt.setString(3, cliente.getDireccion());
+            stmt.setString(4, cliente.getTelefono());
+            stmt.setInt(5, cliente.getCodDocumento());
+            stmt.setString(6, cliente.getEmail());
+            stmt.setString(7, cliente.getSexo());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -44,8 +48,12 @@ public class ClienteDAO {
                 Cliente cliente = new Cliente();
                 cliente.setId(rs.getInt("id"));
                 cliente.setNombre(rs.getString("nombre"));
+                cliente.setApellido(rs.getString("apellido"));
                 cliente.setDireccion(rs.getString("direccion"));
                 cliente.setTelefono(rs.getString("telefono"));
+                cliente.setCodDocumento(rs.getInt("codDocumento"));
+                cliente.setEmail(rs.getString("email"));
+                cliente.setSexo(rs.getString("sexo"));
                 clientes.add(cliente);
             }
         } catch (SQLException e) {
