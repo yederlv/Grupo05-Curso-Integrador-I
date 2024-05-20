@@ -487,7 +487,9 @@ public class RegistrarCliente extends javax.swing.JFrame {
             cliente.setEmail(Email.getText());
             cliente.setTelefono(Telefono.getText());
             cliente.setSexo(Sexo.getSelectedItem().toString());
-            ClienteDAO.addCliente(cliente);
+            
+            ClienteDAO clienteDAO = new ClienteDAO(); // Instancia de ClienteDAO
+            clienteDAO.addCliente(cliente);
 
             Mascota mascota = new Mascota();
             mascota.setNombreMascota(NombreMasc.getText());
@@ -506,7 +508,10 @@ public class RegistrarCliente extends javax.swing.JFrame {
             mascota.setLote(Lote.getText());
             mascota.setEnfermedadesAnteriores(Enfermedades.getText());
             mascota.setTratamiento(Tratamiento.getText());
-            MascotaDAO.addMascota(mascota);
+            // MascotaDAO.addMascota(mascota);
+            
+            MascotaDAO mascotaDAO = new MascotaDAO(); // Instancia de MascotaDAO
+            mascotaDAO.addMascota(mascota);
 
         }catch (Exception e){
             JOptionPane.showMessageDialog(this,"ERROR EN AGREGAR AL NUEVO CLIENTE");
