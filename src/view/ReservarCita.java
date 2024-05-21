@@ -1,8 +1,13 @@
 package view;
 
+import controller.ClienteController;
 import model.Cliente;
 import dao.ClienteDAO;
 import java.util.List;
+import static javax.management.Query.value;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -10,14 +15,32 @@ import java.util.List;
  */
 public class ReservarCita extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ReservarCita
-     */
+    /*
+    private ClienteController clienteController;
+    private 
+    
     public ReservarCita() {
-        initComponents();
+    
         this.setTitle("VETERINARIA PATITAS Y COLITAS");
         this.setLocationRelativeTo(null);
-    }
+        
+        clienteController = new ClienteController();
+        initComponents();
+    }*/
+    
+         ClienteDAO dao=new ClienteDAO();
+         Cliente cliente= new Cliente();
+         DefaultTableModel modelo=new DefaultTableModel();
+         
+          public ReservarCita() {
+              
+            this.setTitle("VETERINARIA PATITAS Y COLITAS");
+            this.setLocationRelativeTo(null);
+            initComponents();
+         }
+          
+     @SuppressWarnings("unchecked")
+    
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -121,25 +144,33 @@ public class ReservarCita extends javax.swing.JFrame {
     }//GEN-LAST:event_CrearNuevoClienteActionPerformed
 
     private void BuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarClienteActionPerformed
-   
-        String valor = IngresarDato.getText();
-        
-        ClienteDAO clienteDAO = new ClienteDAO();
-        
-        if(!valor.isEmpty()){
-            List<Cliente> clientes = clienteDAO.buscarClientes("dni", valor);
-            
-            if(clientes.isEmpty()){
-                clientes = clienteDAO.buscarClientes("apellido", valor);
-            }
-            if(clientes.isEmpty()){
-                clientes = clienteDAO.buscarClientes("telefono", valor);
-            }
-        
-        }
-        
+  
+         buscarCliente();
     }//GEN-LAST:event_BuscarClienteActionPerformed
 
+    private void buscarCliente() {
+       String criterio = IngresarDato.getText(); 
+       List<Cliente> lista= dao.lista(criterio);
+       
+      DefaultTableModel modelo=(DefaultTableModel)ListarCliente.getModel();
+      modelo.setRowCount(0);
+      
+       Object[]ob=new Object[5];
+        for (int i = 0; i < lista.size(); i++) {
+            ob[0]=lista.get(i).getId();
+            ob[1]=lista.get(i).getCodDocumento();
+            ob[2]=lista.get(i).getNombre();
+            ob[3]=lista.get(i).getApellido();
+            ob[4]=lista.get(i).getTelefono();
+            ob[5]=lista.get(i).getDireccion();
+            ob[6]=lista.get(i).getEmail();
+            modelo.addRow(ob);
+        }
+        ListarCliente.setModel(modelo);
+    }
+    
+//</editor-fold>
+    
     /**
      * @param args the command line arguments
      */
@@ -188,4 +219,5 @@ public class ReservarCita extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
 }

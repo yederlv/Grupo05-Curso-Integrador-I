@@ -1,31 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package dao;
 
 import model.Cliente;
 import util.DatabaseConnection;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- *
- * @author Yeder LV
- */
-public class ClienteDAO {
-    private Connection connection;
+public class ClienteDAO implements CRUD  {
+    //private Connection connection;
+    PreparedStatement ps;
+    Connection con;    
+    ResultSet rs;
+    DatabaseConnection conectar = new DatabaseConnection();
+    Cliente cliente = new Cliente ();
 
     public ClienteDAO() {
-        connection = DatabaseConnection.getConnection();
+        con = DatabaseConnection.getConnection();
     }
 
     public void addCliente(Cliente cliente) {
-        String sql = "INSERT INTO clientes (nombre, apellido, direccion, telefono,codDocumento, email, sexo ) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        String sql = "INSERT INTO clientes (nombre, apellido, direccion, telefono, codDocumento, email, sexo) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, cliente.getNombre());
             stmt.setString(2, cliente.getApellido());
             stmt.setString(3, cliente.getDireccion());
@@ -38,32 +38,33 @@ public class ClienteDAO {
             e.printStackTrace();
         }
     }
+    
+    
 
-    public List<Cliente> buscarClientes(String criterio, String valor) {
-        List<Cliente> clientes = new ArrayList<>();
-        String sql = "SELECT * FROM clientes WHERE " + criterio + " LIKE ?";
-               
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, "%" + valor + "%");
+
     
-             try (ResultSet rs = pstmt.executeQuery()) {
+    public List lista(String criterio) {
+        List<Cliente> datos = new ArrayList<>();
+        String sql="SELECT c.idCliente , c.DNI , c.Nombre , c.Apellido , c.Telefono , c.Correo  FROM cliente c WHERE DNI = ?";
+        try {
+            con = conectar.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
-                Cliente cliente = new Cliente();
-                cliente.setId(rs.getInt("id"));
-                cliente.setNombre(rs.getString("nombre"));
-                cliente.setApellido(rs.getString("apellido"));
-                cliente.setTelefono(rs.getString("telefono"));
-                cliente.setDireccion(rs.getString("direccion"));
-                cliente.setEmail(rs.getString("email"));
-                clientes.add(cliente);
+                cliente = new Cliente();
+                cliente.setId(rs.getInt(1));
+                cliente.setCodDocumento(rs.getInt(2));
+                cliente.setNombre(rs.getString(3));
+                cliente.setApellido(rs.getString(4));         
+                cliente.setTelefono(rs.getString(5));
+                cliente.setEmail(rs.getString(6));  
+                        
+                datos.add(cliente);
             }
-          }
-             
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
         }
-        return clientes;
+        return datos;
     }
+
     
-    // Otros métodos como updateCliente, deleteCliente, etc.
 }
