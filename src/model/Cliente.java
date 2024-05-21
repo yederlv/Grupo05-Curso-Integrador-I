@@ -17,7 +17,7 @@ public class Cliente {
     private int codDocumento;
     private String email;
     private String sexo;
-
+    
     // Getters y setters
     public int getId() {
         return id;

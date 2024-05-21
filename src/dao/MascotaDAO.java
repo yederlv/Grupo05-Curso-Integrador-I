@@ -9,8 +9,6 @@ import model.Mascota;
 import util.DatabaseConnection;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 
 
@@ -47,38 +45,6 @@ public class MascotaDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-      
-    public List<Mascota> getAllMascotas() {
-        List<Mascota> mascotas = new ArrayList<>();
-        String sql = "SELECT * FROM mascota";
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                Mascota mascota = new Mascota();
-                mascota.setId(rs.getInt("id"));
-                mascota.setNombreMascota(rs.getString("nombreMascota"));
-                mascota.setEspecie(rs.getString("especie"));
-                mascota.setRaza(rs.getString("raza"));
-                mascota.setEdad(rs.getInt("edad"));
-                mascota.setPeso(rs.getString("peso"));
-                mascota.setSexo(rs.getString("sexo"));
-                mascota.setDesparasitacion(rs.getString("desparasitacion"));
-                mascota.setFechaRegistroDespa(rs.getString("fechaRegistroDespa"));
-                mascota.setProducto(rs.getString("producto"));
-                mascota.setVacunacion(rs.getString("vacunacion"));
-                mascota.setFechaRegistroVacu(rs.getString("fechaRegistroVacu"));
-                mascota.setTipoVacunacion(rs.getString("tipoVacunacion"));
-                mascota.setMarca(rs.getString("marca"));
-                mascota.setLote(rs.getString("lote"));
-                mascota.setEnfermedadesAnteriores(rs.getString("enfermedadesAnteriores"));
-                mascota.setTratamiento(rs.getString("tratamiento"));
-                mascotas.add(mascota);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return mascotas;
     }
     
 }
