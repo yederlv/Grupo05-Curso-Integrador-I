@@ -43,8 +43,7 @@ public class ClienteDAO {
         List<Cliente> clientes = new ArrayList<>();
         String sql = "SELECT * FROM clientes WHERE " + criterio + " LIKE ?";
        
-        try (Statement stmt = connection.createStatement();
-             PreparedStatement pstmt = stmt.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)){
              pstmt.setString(1, "%" + valor + "%");
     
              try (ResultSet rs = pstmt.executeQuery()) {

@@ -10,9 +10,6 @@ import java.util.List;
  */
 public class ReservarCita extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ReservarCita
-     */
     public ReservarCita() {
         initComponents();
         this.setTitle("VETERINARIA PATITAS Y COLITAS");
