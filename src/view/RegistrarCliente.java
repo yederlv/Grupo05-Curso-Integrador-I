@@ -16,7 +16,6 @@ public class RegistrarCliente extends javax.swing.JFrame {
         this.setTitle("VETERINARIA PATITAS Y COLITAS");
         this.setLocationRelativeTo(null);
         
-        
     }
 
     
@@ -211,6 +210,11 @@ public class RegistrarCliente extends javax.swing.JFrame {
         jLabel14.setText("Edad:");
 
         TipoEspecie.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona tipo" }));
+        TipoEspecie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TipoEspecieActionPerformed(evt);
+            }
+        });
 
         jLabel15.setText("Peso:");
 
@@ -472,7 +476,6 @@ public class RegistrarCliente extends javax.swing.JFrame {
         newframe.setVisible(true);
         this.dispose();
         
-        
     }//GEN-LAST:event_AgregarMascotaActionPerformed
 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
@@ -508,7 +511,6 @@ public class RegistrarCliente extends javax.swing.JFrame {
             mascota.setLote(Lote.getText());
             mascota.setEnfermedadesAnteriores(Enfermedades.getText());
             mascota.setTratamiento(Tratamiento.getText());
-            // MascotaDAO.addMascota(mascota);
             
             MascotaDAO mascotaDAO = new MascotaDAO(); // Instancia de MascotaDAO
             mascotaDAO.addMascota(mascota);
@@ -520,6 +522,10 @@ public class RegistrarCliente extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_GuardarActionPerformed
+
+    private void TipoEspecieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TipoEspecieActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TipoEspecieActionPerformed
 
     /**
      * @param args the command line arguments

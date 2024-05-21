@@ -39,28 +39,31 @@ public class ClienteDAO {
         }
     }
 
-    public List<Cliente> getAllClientes() {
+    public List<Cliente> buscarClientes(String criterio, String valor) {
         List<Cliente> clientes = new ArrayList<>();
-        String sql = "SELECT * FROM clientes";
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+        String sql = "SELECT * FROM clientes WHERE " + criterio + " LIKE ?";
+               
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, "%" + valor + "%");
+    
+             try (ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 Cliente cliente = new Cliente();
                 cliente.setId(rs.getInt("id"));
                 cliente.setNombre(rs.getString("nombre"));
                 cliente.setApellido(rs.getString("apellido"));
-                cliente.setDireccion(rs.getString("direccion"));
                 cliente.setTelefono(rs.getString("telefono"));
-                cliente.setCodDocumento(rs.getInt("codDocumento"));
+                cliente.setDireccion(rs.getString("direccion"));
                 cliente.setEmail(rs.getString("email"));
-                cliente.setSexo(rs.getString("sexo"));
                 clientes.add(cliente);
             }
+          }
+             
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return clientes;
     }
-
+    
     // Otros métodos como updateCliente, deleteCliente, etc.
 }
