@@ -26,7 +26,7 @@ public class MainFrame extends javax.swing.JFrame {
     
     public MainFrame() {
         initComponents();
-        setTitle("Gestión de Clientes");
+        setTitle("VETERINARIA PATITAS Y COLITAS");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -34,8 +34,8 @@ public class MainFrame extends javax.swing.JFrame {
         clienteDAO = new ClienteDAO();
         
         searchField = new JTextField(20);
-        searchButton = new JButton("Buscar");
-        newClientButton = new JButton("Nuevo Cliente");
+        searchButton = new JButton("Ingresar datos del Dueño:");
+        newClientButton = new JButton("NUEVO CLIENTE");
         
         tableModel = new ClientTableModel();
         clientTable = new JTable((TableModel) tableModel);
@@ -56,8 +56,8 @@ public class MainFrame extends javax.swing.JFrame {
                 String searchText = searchField.getText();
                 // Determinar criterio de búsqueda (por simplicidad, asumimos que el usuario sabe cómo buscar)
                 String criterio = "dni";  // Puedes cambiar esto según necesites (dni, apellido, telefono)
-                List<Cliente> clientes = clienteDAO.buscarClientes(criterio, searchText);
-                tableModel.setClientes(clientes);
+                //List<Cliente> clientes = clienteDAO.buscarCliente(criterio, searchText);
+                //tableModel.setClientes(clientes);
             }
 
         });
