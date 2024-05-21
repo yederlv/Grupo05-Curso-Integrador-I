@@ -491,7 +491,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
             cliente.setTelefono(Telefono.getText());
             cliente.setSexo(Sexo.getSelectedItem().toString());
             
-            ClienteDAO clienteDAO = new ClienteDAO();
+            ClienteDAO clienteDAO = new ClienteDAO(); // Instancia de ClienteDAO
             clienteDAO.addCliente(cliente);
 
             Mascota mascota = new Mascota();
@@ -512,7 +512,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
             mascota.setEnfermedadesAnteriores(Enfermedades.getText());
             mascota.setTratamiento(Tratamiento.getText());
             
-            MascotaDAO mascotaDAO = new MascotaDAO();
+            MascotaDAO mascotaDAO = new MascotaDAO(); // Instancia de MascotaDAO
             mascotaDAO.addMascota(mascota);
 
         }catch (Exception e){
