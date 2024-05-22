@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 /**
@@ -9,22 +5,26 @@ package model;
  * @author Yeder LV
  */
 public class Cliente {
-    private int id;
+    
+    // Atributos
+    private static int idCliente;
     private String nombre;
     private String apellido;
+    private String sexo;  // Valores: M y F (Solo una letra)
     private String direccion;
-    private String telefono;
-    private int codDocumento;
-    private String email;
-    private String sexo;
+    private int telefono;
+    private String correo;
+    private int dni;
     
-    // Getters y setters
-    public int getId() {
-        return id;
+    
+    
+    // Getters y setters Cliente
+    public static int getIdCliente() {
+        return idCliente;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
 
     public String getNombre() {
@@ -34,13 +34,21 @@ public class Cliente {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
-    public String getApellido(){
+
+    public String getApellido() {
         return apellido;
     }
-    
-    public void setApellido(String apellido){
+
+    public void setApellido(String apellido) {
         this.apellido = apellido;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 
     public String getDireccion() {
@@ -51,35 +59,28 @@ public class Cliente {
         this.direccion = direccion;
     }
 
-    public String getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
-    
-    public int getCodDocumento(){
-        return codDocumento;
+
+    public String getEmail() {
+        return correo;
     }
-    
-    public void setCodDocumento(int codDocumento){
-        this.codDocumento = codDocumento;
+
+    public void setEmail(String correo) {
+        this.correo = correo;
     }
-    
-    public String getEmail(){
-        return email;
+
+    public int getCodDocumento() {
+        return dni;
     }
-    
-    public void setEmail(String email){
-        this.email = email;
+
+    public void setCodDocumento(int dni) {
+        this.dni = dni;
     }
-    
-    public String getSexo(){
-        return sexo;
-    }
-    
-    public void setSexo (String sexo){
-        this.sexo = sexo;
-    }
+
 }

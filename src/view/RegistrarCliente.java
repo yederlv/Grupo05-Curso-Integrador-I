@@ -488,7 +488,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
             cliente.setCodDocumento(Integer.parseInt(DocuementoIdentidad.getText()));
             cliente.setDireccion(Direccion.getText());
             cliente.setEmail(Email.getText());
-            cliente.setTelefono(Telefono.getText());
+            cliente.setTelefono(Integer.parseInt(Telefono.getText()));
             cliente.setSexo(Sexo.getSelectedItem().toString());
             
             ClienteDAO clienteDAO = new ClienteDAO(); // Instancia de ClienteDAO
@@ -496,21 +496,9 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
             Mascota mascota = new Mascota();
             mascota.setNombreMascota(NombreMasc.getText());
-            mascota.setEspecie(TipoEspecie.getSelectedItem().toString());
-            mascota.setRaza(TipoRaza.getSelectedItem().toString());
-            mascota.setEdad(Integer.parseInt(Edad.getText()));
-            mascota.setPeso(Peso.getText());
-            mascota.setSexo(SexoMascota.getSelectedItem().toString());
-            mascota.setDesparasitacion(Desparasitacion.getSelectedItem().toString());
-            mascota.setVacunacion(Vacunacion.getSelectedItem().toString());
-            mascota.setFechaRegistroDespa(FechaDesparasitacion.getText());
-            mascota.setProducto(Producto.getText());
-            mascota.setFechaRegistroVacu(FechaVacunacion.getText());
-            mascota.setTipoVacunacion(TipoVacunacion.getSelectedItem().toString());
-            mascota.setMarca(Marca.getText());
-            mascota.setLote(Lote.getText());
-            mascota.setEnfermedadesAnteriores(Enfermedades.getText());
-            mascota.setTratamiento(Tratamiento.getText());
+            mascota.setEdadMascota(Integer.parseInt(Edad.getText()));
+            mascota.setPesoMascota(Integer.parseInt(Peso.getText()));
+            mascota.setSexoMascota(SexoMascota.getSelectedItem().toString());
             
             MascotaDAO mascotaDAO = new MascotaDAO(); // Instancia de MascotaDAO
             mascotaDAO.addMascota(mascota);
