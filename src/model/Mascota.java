@@ -1,167 +1,76 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
-
+import model.Cliente;
+import model.Especie;
+import model.Raza;
 /**
  *
  * @author Alfredo
  */
 public class Mascota {
-    private int id;
+    
+    // Atributos Mascota
+    private static int idMascota;
     private String nombreMascota;
-    private String especie;
-    private String raza;
-    private int edad;
-    private String peso;
-    private String sexo;
-    private String desparasitacion;
-    private String fechaRegistroDespa;
-    private String producto;
-    private String vacunacion;
-    private String fechaRegistroVacu;
-    private String tipoVacunacion;
-    private String marca;
-    private String lote;
-    private String enfermedadesAnteriores;
-    private String tratamiento;
+    private int pesoMascota;
+    private int edadMascota;
+    private String sexoMascota; // Valores: M y H (Solo una letra)
+
+    //private int idCliente_FK;
+    //private int idEspecie_FK;
+    //private int idRaza_FK;
     
-    
-    public int getId(){
-        return id;
+    // Getters y setters Mascota
+    public static int getIdMascota() {
+        return idMascota;
     }
-    
-    public void setId(int id){
-        this.id = id;
+
+    public void setIdMascota(int idMascota) {
+        this.idMascota = idMascota;
     }
-    
-    public String getNombreMascota(){
+
+    public String getNombreMascota() {
         return nombreMascota;
     }
-    
-    public void setNombreMascota(String nombreMascota){
+
+    public void setNombreMascota(String nombreMascota) {
         this.nombreMascota = nombreMascota;
     }
-    
-    public String getEspecie(){
-        return especie;
+
+    public int getPesoMascota() {
+        return pesoMascota;
+    }
+
+    public void setPesoMascota(int pesoMascota) {
+        this.pesoMascota = pesoMascota;
+    }
+
+    public int getEdadMascota() {
+        return edadMascota;
+    }
+
+    public void setEdadMascota(int edadMascota) {
+        this.edadMascota = edadMascota;
+    }
+
+    public String getSexoMascota() {
+        return sexoMascota;
+    }
+
+    public void setSexoMascota(String sexoMascota) {
+        this.sexoMascota = sexoMascota;
     }
     
-    public void setEspecie(String especie){
-        this.especie = especie;
+    // Getters Foraneos Mascota
+    public int getIdClienteFK() {
+        return Cliente.getIdCliente();
     }
     
-    public String getRaza(){
-        return raza;
+    public int getIdEspecieFK() {
+        return Especie.getIdEspecie();
     }
     
-    public void setRaza(String raza){
-        this.raza = raza;
+    public int getIdRazaFK() {
+        return Raza.getIdRaza();
     }
-    
-    public int getEdad(){
-        return edad;
-    }
-    
-    public void setEdad (int edad){
-        this.edad = edad;
-    }
-    
-    public String getPeso(){
-        return peso;
-    }
-    
-    public void setPeso(String peso){
-        this.peso = peso;
-    }
-    
-    public String getSexo(){
-        return sexo;
-    }
-    
-    public void setSexo(String sexo){
-        this.sexo = sexo;
-    }
-    
-    public String getDesparasitacion(){
-        return desparasitacion;
-    }
-    
-    public void setDesparasitacion(String desparasitacion){
-        this.desparasitacion = desparasitacion;
-    }
-    
-    public String getFechaRegistroDespa(){
-        return fechaRegistroDespa;
-    }
-    
-    public void setFechaRegistroDespa(String fechaRegistroDespa){
-        this.fechaRegistroDespa = fechaRegistroDespa;
-    }
-    
-    public String getProducto(){
-        return producto;
-    }
-    
-    public void setProducto(String producto){
-        this.producto = producto;
-    }
-    
-    public String getVacunacion(){
-        return vacunacion;
-    }
-    
-    public void setVacunacion(String vacunacion){
-        this.vacunacion = vacunacion;
-    }
-    
-    public String getFechaRegistroVacu(){
-        return fechaRegistroVacu;
-    }
-    
-    public void setFechaRegistroVacu (String fechaRegistroVacu){
-        this.fechaRegistroVacu = vacunacion;
-    }
-    
-    public String getTipoVacunacion(){
-        return tipoVacunacion;
-    }
-    
-    public void setTipoVacunacion(String tipoVacunacion){
-        this.tipoVacunacion = tipoVacunacion;
-    }
-    
-    public String getMarca(){
-        return marca;
-    }
-    
-    public void setMarca(String marca){
-        this.marca = marca;
-    }
-    
-    public String getLote(){
-        return lote;
-    }
-    
-    public void setLote(String lote){
-        this.lote = lote;
-    }
-    
-    public String getEnfermedadesAnteriores(){
-        return enfermedadesAnteriores;
-    }
-    
-    public void setEnfermedadesAnteriores(String enfermedadesAnteriores){
-        this.enfermedadesAnteriores = enfermedadesAnteriores;
-    }
-    
-    public String getTratamiento(){
-        return tratamiento;
-    }
-    
-    public void setTratamiento(String tratamiento){
-        this.tratamiento = tratamiento;
-    }
+
 }

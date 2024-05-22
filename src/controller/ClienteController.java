@@ -12,7 +12,7 @@ public class ClienteController {
         this.clienteDAO = new ClienteDAO();
     }
 
-public List<Cliente> buscarClientes(String criterio) {
+/*public List<Cliente> buscarClientes(String criterio) {
         return clienteDAO.lista(criterio);
-  }
+  }*/
 }
