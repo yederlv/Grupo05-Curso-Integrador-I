@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 
 
+
 public class MascotaDAO {
     
     private Connection connection;
@@ -18,11 +19,13 @@ public class MascotaDAO {
     }
      
     // Agregar Mascota
-      public void addMascota(Mascota mascota) {
+      public void addMascota(Mascota mascota) throws SQLException {
         String sql = "INSERT INTO mascota (nombreMascota, pesoMascota, edadMascota, sexoMascota, idCliente, idEspecie, idRaza)"
                 + "VALUES (?, ?, ?, ?, ?, ?, ?)";
         
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
             stmt.setString(1, mascota.getNombreMascota());
             stmt.setInt(2, mascota.getPesoMascota());
             stmt.setInt(3, mascota.getEdadMascota());
@@ -30,9 +33,11 @@ public class MascotaDAO {
             stmt.setInt(5, mascota.getIdClienteFK());
             stmt.setInt(6, mascota.getIdEspecieFK());
             stmt.setInt(7, mascota.getIdRazaFK());
+            
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw e; 
         }
     }
       
