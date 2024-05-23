@@ -94,7 +94,12 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
         jLabel8.setText("Sexo:");
 
-        Sexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Masculino", "Femenino" }));
+        Sexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "M", "F" }));
+        Sexo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SexoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -186,10 +191,10 @@ public class RegistrarCliente extends javax.swing.JFrame {
         PanelMascotas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         PanelMascotas.setEnabled(false);
         PanelMascotas.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 PanelMascotasAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -378,8 +383,31 @@ public class RegistrarCliente extends javax.swing.JFrame {
             Peso.getText().isEmpty() || SexoMascota.getSelectedItem() == null || 
             JComboBoxTE.getSelectedItem() == null || JComboBoxTR.getSelectedItem() == null) {
             
+<<<<<<< HEAD
             JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
             return;
+=======
+            ClienteDAO clienteDAO = new ClienteDAO(); // Instancia de ClienteDAO
+            clienteDAO.addCliente(cliente);
+
+            Mascota mascota = new Mascota();
+            mascota.setNombreMascota(NombreMasc.getText());
+            mascota.setEdadMascota(Integer.parseInt(Edad.getText()));
+            mascota.setPesoMascota(Integer.parseInt(Peso.getText()));
+            mascota.setSexoMascota(SexoMascota.getSelectedItem().toString());
+           
+            Especie especie = new Especie();
+            especie.setTipoEspecie(JComboBoxTE.getSelectedItem().toString());
+            
+            Raza raza = new Raza();
+            raza.setTipoRaza(JComboBoxTR.getSelectedItem().toString());
+            
+            MascotaDAO mascotaDAO = new MascotaDAO(); // Instancia de MascotaDAO
+            mascotaDAO.addMascota(mascota);
+            
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this,"ERROR EN AGREGAR AL NUEVO CLIENTE!!!");
+>>>>>>> origin
         }
 
         // Validar DNI
@@ -464,6 +492,10 @@ public class RegistrarCliente extends javax.swing.JFrame {
     private void PanelMascotasAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_PanelMascotasAncestorAdded
         // TODO add your handling code here:
     }//GEN-LAST:event_PanelMascotasAncestorAdded
+
+    private void SexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SexoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SexoActionPerformed
 
     public void addMascota(Mascota mascota) {
     JPanel PanelMascotas = new JPanel();
