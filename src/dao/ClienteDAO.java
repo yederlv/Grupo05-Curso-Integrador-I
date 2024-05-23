@@ -16,7 +16,6 @@ public class ClienteDAO {
     }
 
     // Agregar Cliente
-<<<<<<< HEAD
     public int addCliente(Cliente cliente) throws SQLException {
         //int generatedId = -1;
         String sql = "INSERT INTO cliente (nombre, apellido, sexo, direccion, telefono, correo, dni ) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -24,11 +23,6 @@ public class ClienteDAO {
         try (Connection conn = DatabaseConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){ 
             
-=======
-    public void addCliente(Cliente cliente) {
-        String sql = "INSERT INTO cliente (nombre, apellido, sexo, direccion, telefono, correo, dni ) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
->>>>>>> origin
             stmt.setString(1, cliente.getNombre());
             stmt.setString(2, cliente.getApellido());
             stmt.setString(3, cliente.getSexo());
