@@ -1,4 +1,3 @@
-
 package view;
 
 import dao.ClienteDAO;
@@ -6,6 +5,7 @@ import dao.MascotaDAO;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -17,18 +17,18 @@ import model.Especie;
 import model.Mascota;
 import model.Raza;
 
-
 public class RegistrarCliente extends javax.swing.JFrame {
+
     private Object ComboBoxFiller;
-   
+
     public RegistrarCliente() {
-        
+
         initComponents();
         this.setTitle("VETERINARIA PATITAS Y COLITAS");
         this.setLocationRelativeTo(null);
-        
+
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -206,7 +206,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
         jLabel12.setText("Sexo:");
 
         JComboBoxTR.setEditable(true);
-        JComboBoxTR.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona Tipo raza" }));
+        JComboBoxTR.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona Tipo raza", "Pequeño", "Mediano", "Grande" }));
         JComboBoxTR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JComboBoxTRActionPerformed(evt);
@@ -217,7 +217,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
         jLabel14.setText("Edad:");
 
-        JComboBoxTE.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona tipo" }));
+        JComboBoxTE.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona tipo", "Perro", "Gato" }));
         JComboBoxTE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JComboBoxTEActionPerformed(evt);
@@ -226,7 +226,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
         jLabel15.setText("Peso:");
 
-        SexoMascota.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Macho", "Hembra" }));
+        SexoMascota.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "M", "F" }));
 
         javax.swing.GroupLayout PanelMascotasLayout = new javax.swing.GroupLayout(PanelMascotas);
         PanelMascotas.setLayout(PanelMascotasLayout);
@@ -364,16 +364,16 @@ public class RegistrarCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AgregarMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarMascotaActionPerformed
-        
+
         AgregarMascota newframe = new AgregarMascota();
         newframe.setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_AgregarMascotaActionPerformed
 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
-     
-        try {
+
+        /*try {
             
             Cliente cliente = new Cliente();
             cliente.setNombre(Nombres.getText());
@@ -404,7 +404,68 @@ public class RegistrarCliente extends javax.swing.JFrame {
             
         }catch (Exception e){
             JOptionPane.showMessageDialog(this,"ERROR EN AGREGAR AL NUEVO CLIENTE!!!");
+        }*/
+        try {
+            // Validar campos vacíos o nulos
+            if (Nombres.getText().isEmpty() || Apellidos.getText().isEmpty() || DocuementoIdentidad.getText().isEmpty()
+                    || Direccion.getText().isEmpty() || Email.getText().isEmpty() || Telefono.getText().isEmpty()
+                    || Sexo.getSelectedItem() == null || NombreMasc.getText().isEmpty() || Edad.getText().isEmpty()
+                    || Peso.getText().isEmpty() || SexoMascota.getSelectedItem() == null
+                    || JComboBoxTE.getSelectedItem() == null || JComboBoxTR.getSelectedItem() == null) {
+
+                JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Crear Cliente
+            Cliente cliente = new Cliente();
+            cliente.setNombre(Nombres.getText());
+            cliente.setApellido(Apellidos.getText());
+            cliente.setCodDocumento(Integer.parseInt(DocuementoIdentidad.getText()));
+            cliente.setDireccion(Direccion.getText());
+            cliente.setEmail(Email.getText());
+            cliente.setTelefono(Integer.parseInt(Telefono.getText()));
+            cliente.setSexo(Sexo.getSelectedItem().toString());
+
+            ClienteDAO clienteDAO = new ClienteDAO(); // Instancia de ClienteDAO
+            clienteDAO.addCliente(cliente);
+
+            // Crear Mascota
+            Mascota mascota = new Mascota();
+            mascota.setNombreMascota(NombreMasc.getText());
+            mascota.setEdadMascota(Integer.parseInt(Edad.getText()));
+            mascota.setPesoMascota(Integer.parseInt(Peso.getText()));
+            mascota.setSexoMascota(SexoMascota.getSelectedItem().toString());
+
+            /*Especie especie = new Especie();
+        especie.setTipoEspecie(JComboBoxTE.getSelectedItem().toString());
+        mascota.setEspecie(especie);
+
+        Raza raza = new Raza();
+        raza.setTipoRaza(JComboBoxTR.getSelectedItem().toString());
+        mascota.setRaza(raza);*/
+            Especie especie = new Especie();
+            especie.setTipoEspecie(JComboBoxTE.getSelectedItem().toString());
+
+            Raza raza = new Raza();
+            raza.setTipoRaza(JComboBoxTR.getSelectedItem().toString());
+
+            MascotaDAO mascotaDAO = new MascotaDAO(); // Instancia de MascotaDAO
+            mascotaDAO.addMascota(mascota);
+
+            // Mostrar mensaje de éxito
+            JOptionPane.showMessageDialog(this, "Cliente y mascota guardados exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores numéricos válidos para Documento y Teléfono", "Error", JOptionPane.ERROR_MESSAGE);
+        } /*catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error en la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } */catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+
+
+                
   
     }//GEN-LAST:event_GuardarActionPerformed
 
@@ -412,13 +473,13 @@ public class RegistrarCliente extends javax.swing.JFrame {
     private void JComboBoxTEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboBoxTEActionPerformed
 
         re.RellenarComboBox("especie", "TipoEspecie", JComboBoxTE);
-        
+
     }//GEN-LAST:event_JComboBoxTEActionPerformed
 
     private void JComboBoxTRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboBoxTRActionPerformed
-        
+
         re.RellenarComboBox("raza", "TipoRaza", JComboBoxTR);
-        
+
     }//GEN-LAST:event_JComboBoxTRActionPerformed
 
     private void PanelMascotasAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_PanelMascotasAncestorAdded
@@ -430,54 +491,55 @@ public class RegistrarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_SexoActionPerformed
 
     public void addMascota(Mascota mascota) {
-    JPanel PanelMascotas = new JPanel();
-    PanelMascotas.setLayout(new BorderLayout());
+        JPanel PanelMascotas = new JPanel();
+        PanelMascotas.setLayout(new BorderLayout());
 
-    JLabel lblNombre = new JLabel("Nombre: " + mascota.getNombreMascota());
-    JLabel lblEdad = new JLabel("Edad: " + mascota.getEdadMascota());
-    JLabel lblPeso = new JLabel("Peso: " + mascota.getPesoMascota());
-    JLabel lblSexo = new JLabel("Sexo: " + mascota.getSexoMascota());
-    JLabel lblEspecie = new JLabel("Especie: " + mascota.getIdEspecieFK());
-    JLabel lblRaza = new JLabel("Raza: " + mascota.getIdRazaFK());
+        JLabel lblNombre = new JLabel("Nombre: " + mascota.getNombreMascota());
+        JLabel lblEdad = new JLabel("Edad: " + mascota.getEdadMascota());
+        JLabel lblPeso = new JLabel("Peso: " + mascota.getPesoMascota());
+        JLabel lblSexo = new JLabel("Sexo: " + mascota.getSexoMascota());
+        JLabel lblEspecie = new JLabel("Especie: " + mascota.getIdEspecieFK());
+        JLabel lblRaza = new JLabel("Raza: " + mascota.getIdRazaFK());
 
-    JButton btnExpand = new JButton("+");
-    btnExpand.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            boolean isExpanded = lblEdad.isVisible();
-            lblEdad.setVisible(!isExpanded);
-            lblPeso.setVisible(!isExpanded);
-            lblSexo.setVisible(!isExpanded);
-            lblEspecie.setVisible(!isExpanded);
-            lblRaza.setVisible(!isExpanded);
-            btnExpand.setText(isExpanded ? "+" : "-");
-        }
-        
-    });
+        JButton btnExpand = new JButton("+");
+        btnExpand.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                boolean isExpanded = lblEdad.isVisible();
+                lblEdad.setVisible(!isExpanded);
+                lblPeso.setVisible(!isExpanded);
+                lblSexo.setVisible(!isExpanded);
+                lblEspecie.setVisible(!isExpanded);
+                lblRaza.setVisible(!isExpanded);
+                btnExpand.setText(isExpanded ? "+" : "-");
+            }
 
-    PanelMascotas.add(lblNombre, BorderLayout.NORTH);
-    PanelMascotas.add(btnExpand, BorderLayout.EAST);
+        });
 
-    JPanel panelDetalles = new JPanel();
-    panelDetalles.setLayout(new BoxLayout(panelDetalles, BoxLayout.Y_AXIS));
-    panelDetalles.add(lblEdad);
-    panelDetalles.add(lblPeso);
-    panelDetalles.add(lblSexo);
-    panelDetalles.add(lblEspecie);
-    panelDetalles.add(lblRaza);
+        PanelMascotas.add(lblNombre, BorderLayout.NORTH);
+        PanelMascotas.add(btnExpand, BorderLayout.EAST);
 
-    lblEdad.setVisible(false);
-    lblPeso.setVisible(false);
-    lblSexo.setVisible(false);
-    lblEspecie.setVisible(false);
-    lblRaza.setVisible(false);
+        JPanel panelDetalles = new JPanel();
+        panelDetalles.setLayout(new BoxLayout(panelDetalles, BoxLayout.Y_AXIS));
+        panelDetalles.add(lblEdad);
+        panelDetalles.add(lblPeso);
+        panelDetalles.add(lblSexo);
+        panelDetalles.add(lblEspecie);
+        panelDetalles.add(lblRaza);
 
-    PanelMascotas.add(panelDetalles, BorderLayout.CENTER);
+        lblEdad.setVisible(false);
+        lblPeso.setVisible(false);
+        lblSexo.setVisible(false);
+        lblEspecie.setVisible(false);
+        lblRaza.setVisible(false);
 
-    PanelMascotas.add(PanelMascotas);
-    PanelMascotas.revalidate();
-    PanelMascotas.repaint();
-}
+        PanelMascotas.add(panelDetalles, BorderLayout.CENTER);
+
+        PanelMascotas.add(PanelMascotas);
+        PanelMascotas.revalidate();
+        PanelMascotas.repaint();
+    }
+
     /**
      * @param args the command line arguments
      */

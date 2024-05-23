@@ -442,8 +442,11 @@
           <Properties>
             <Property name="editable" type="boolean" value="true"/>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="1">
+              <StringArray count="4">
                 <StringItem index="0" value="Selecciona Tipo raza"/>
+                <StringItem index="1" value="Peque&#xf1;o"/>
+                <StringItem index="2" value="Mediano"/>
+                <StringItem index="3" value="Grande"/>
               </StringArray>
             </Property>
           </Properties>
@@ -467,8 +470,10 @@
         <Component class="javax.swing.JComboBox" name="JComboBoxTE">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="1">
+              <StringArray count="3">
                 <StringItem index="0" value="Selecciona tipo"/>
+                <StringItem index="1" value="Perro"/>
+                <StringItem index="2" value="Gato"/>
               </StringArray>
             </Property>
           </Properties>
@@ -498,8 +503,8 @@
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="2">
-                <StringItem index="0" value="Macho"/>
-                <StringItem index="1" value="Hembra"/>
+                <StringItem index="0" value="M"/>
+                <StringItem index="1" value="F"/>
               </StringArray>
             </Property>
           </Properties>
