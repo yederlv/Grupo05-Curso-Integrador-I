@@ -8,10 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- *
- * @author Yeder LV
- */
 public class ClienteDAO {
     private Connection connection;
 
@@ -20,9 +16,19 @@ public class ClienteDAO {
     }
 
     // Agregar Cliente
+<<<<<<< HEAD
+    public int addCliente(Cliente cliente) throws SQLException {
+        //int generatedId = -1;
+        String sql = "INSERT INTO cliente (nombre, apellido, sexo, direccion, telefono, correo, dni ) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        
+        try (Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){ 
+            
+=======
     public void addCliente(Cliente cliente) {
         String sql = "INSERT INTO cliente (nombre, apellido, sexo, direccion, telefono, correo, dni ) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+>>>>>>> origin
             stmt.setString(1, cliente.getNombre());
             stmt.setString(2, cliente.getApellido());
             stmt.setString(3, cliente.getSexo());
@@ -31,9 +37,23 @@ public class ClienteDAO {
             stmt.setString(6, cliente.getEmail());
             stmt.setInt(7, cliente.getCodDocumento());
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            
+            int affectedRows = stmt.executeUpdate();
+            
+            if (affectedRows == 0) {
+                throw new SQLException("Creating user failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
+                }
+            }
+            
+        } 
+       
     }
 
     // Listar Cliente

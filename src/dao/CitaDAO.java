@@ -28,7 +28,7 @@ public class CitaDAO {
             stmt.setString(3, cita.getHoraFin());   // Tipo de Dato Fecha
             stmt.setString(4, cita.getLugarCita()); 
             stmt.setString(5, cita.getEstadoCita());
-            stmt.setInt(6, cita.getIdMascotaFK());
+            //stmt.setInt(6, cita.getIdMascotaFK());
             stmt.setInt(7, cita.getIdServicioFK());
             stmt.executeUpdate();
         } catch (SQLException e) {

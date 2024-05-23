@@ -67,11 +67,11 @@ public class Cita{
         this.estadoCita = estadoCita;
     }
     
-    // Getters Foraneos Cita
+   /* // Getters Foraneos Cita
     public int getIdMascotaFK() {
         return Mascota.getIdMascota();
     }
-    
+    */
     public int getIdServicioFK() {
         return Servicio.getIdServicio();
     }
