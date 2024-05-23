@@ -468,9 +468,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
         }
 
 
-                
-=======
->>>>>>> origin
+
         }
 
         // Validar DNI
@@ -536,8 +534,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
     } catch (Exception e) {
         JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
->>>>>>> e4b0b27e163e3533388848d6cdf88fd7009302fa
-  
+
     }//GEN-LAST:event_GuardarActionPerformed
 
     MascotaDAO re = new MascotaDAO();
