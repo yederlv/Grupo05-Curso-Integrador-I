@@ -6,6 +6,7 @@ import dao.MascotaDAO;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -370,36 +371,80 @@ public class RegistrarCliente extends javax.swing.JFrame {
      
         try {
             
-            Cliente cliente = new Cliente();
-            cliente.setNombre(Nombres.getText());
-            cliente.setApellido(Apellidos.getText());
-            cliente.setCodDocumento(Integer.parseInt(DocuementoIdentidad.getText()));
-            cliente.setDireccion(Direccion.getText());
-            cliente.setEmail(Email.getText());
-            cliente.setTelefono(Integer.parseInt(Telefono.getText()));
-            cliente.setSexo(Sexo.getSelectedItem().toString());
+        // Validar campos vacíos o nulos
+        if (Nombres.getText().isEmpty() || Apellidos.getText().isEmpty() || DocuementoIdentidad.getText().isEmpty() ||
+            Direccion.getText().isEmpty() || Email.getText().isEmpty() || Telefono.getText().isEmpty() ||
+            Sexo.getSelectedItem() == null || NombreMasc.getText().isEmpty() || Edad.getText().isEmpty() ||
+            Peso.getText().isEmpty() || SexoMascota.getSelectedItem() == null || 
+            JComboBoxTE.getSelectedItem() == null || JComboBoxTR.getSelectedItem() == null) {
             
-            ClienteDAO clienteDAO = new ClienteDAO(); // Instancia de ClienteDAO
-            clienteDAO.addCliente(cliente);
-
-            Mascota mascota = new Mascota();
-            mascota.setNombreMascota(NombreMasc.getText());
-            mascota.setEdadMascota(Integer.parseInt(Edad.getText()));
-            mascota.setPesoMascota(Integer.parseInt(Peso.getText()));
-            mascota.setSexoMascota(SexoMascota.getSelectedItem().toString());
-           
-            Especie especie = new Especie();
-            especie.setTipoEspecie(JComboBoxTE.getSelectedItem().toString());
-            
-            Raza raza = new Raza();
-            raza.setTipoRaza(JComboBoxTR.getSelectedItem().toString());
-            
-            MascotaDAO mascotaDAO = new MascotaDAO(); // Instancia de MascotaDAO
-            mascotaDAO.addMascota(mascota);
-            
-        }catch (Exception e){
-            JOptionPane.showMessageDialog(this,"ERROR EN AGREGAR AL NUEVO CLIENTE");
+            JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+
+        // Validar DNI
+        String dni = DocuementoIdentidad.getText();
+        if (dni.length() != 8 || !dni.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "El DNI debe tener exactamente 8 dígitos numéricos", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validar Teléfono
+        String telefono = Telefono.getText();
+        if (telefono.length() < 9 || telefono.length() > 11 || !telefono.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "El teléfono debe tener entre 9 y 11 dígitos numéricos", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Crear Cliente
+        Cliente cliente = new Cliente();
+        cliente.setNombre(Nombres.getText());
+        cliente.setApellido(Apellidos.getText());
+        cliente.setCodDocumento(Integer.parseInt(dni));
+        cliente.setDireccion(Direccion.getText());
+        cliente.setEmail(Email.getText());
+        cliente.setTelefono(Integer.parseInt(telefono));
+        cliente.setSexo(Sexo.getSelectedItem().toString());
+        
+        ClienteDAO clienteDAO = new ClienteDAO();
+        int clienteId = clienteDAO.addCliente(cliente);
+        
+        if (clienteId == -1) {
+            JOptionPane.showMessageDialog(this, "Error al insertar el cliente en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Crear Mascota
+        Mascota mascota = new Mascota();
+    
+        mascota.setNombreMascota(NombreMasc.getText());
+        mascota.setEdadMascota(Integer.parseInt(Edad.getText()));
+        mascota.setPesoMascota(Integer.parseInt(Peso.getText()));
+        mascota.setSexoMascota(SexoMascota.getSelectedItem().toString());
+        mascota.setIdClienteFK(clienteId);
+       
+        Especie especie = new Especie();
+        especie.setTipoEspecie(JComboBoxTE.getSelectedItem().toString());
+            
+        Raza raza = new Raza();
+        raza.setTipoRaza(JComboBoxTR.getSelectedItem().toString());
+
+        MascotaDAO mascotaDAO = new MascotaDAO(); // Instancia de MascotaDAO
+        mascotaDAO.addMascota(mascota);
+
+        // Mostrar mensaje de éxito
+        JOptionPane.showMessageDialog(this, "Cliente y mascota guardados exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Por favor, ingrese valores numéricos válidos para Documento y Teléfono", "Error", JOptionPane.ERROR_MESSAGE);
+        
+    /*} catch (SQLException e) {
+        
+        JOptionPane.showMessageDialog(this, "Error en la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+      */  
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
   
     }//GEN-LAST:event_GuardarActionPerformed
 

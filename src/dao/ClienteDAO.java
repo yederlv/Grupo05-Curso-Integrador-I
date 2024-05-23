@@ -8,10 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- *
- * @author Yeder LV
- */
 public class ClienteDAO {
     private Connection connection;
 
@@ -20,9 +16,13 @@ public class ClienteDAO {
     }
 
     // Agregar Cliente
-    public void addCliente(Cliente cliente) {
-        String sql = "INSERT INTO clientes (nombre, apellido, sexo, direccion, telefono, correo, dni ) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+    public int addCliente(Cliente cliente) throws SQLException {
+        //int generatedId = -1;
+        String sql = "INSERT INTO cliente (nombre, apellido, sexo, direccion, telefono, correo, dni ) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        
+        try (Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){ 
+            
             stmt.setString(1, cliente.getNombre());
             stmt.setString(2, cliente.getApellido());
             stmt.setString(3, cliente.getSexo());
@@ -31,15 +31,29 @@ public class ClienteDAO {
             stmt.setString(6, cliente.getEmail());
             stmt.setInt(7, cliente.getCodDocumento());
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            
+            int affectedRows = stmt.executeUpdate();
+            
+            if (affectedRows == 0) {
+                throw new SQLException("Creating user failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
+                }
+            }
+            
+        } 
+       
     }
 
     // Listar Cliente
     public List<Cliente> buscarClientes(String criterio, String valor) {
         List<Cliente> clientes = new ArrayList<>();
-        String sql = "SELECT * FROM clientes WHERE " + criterio + " LIKE ?";
+        String sql = "SELECT * FROM cliente WHERE " + criterio + " LIKE ?";
                
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, "%" + valor + "%");

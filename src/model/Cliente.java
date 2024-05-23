@@ -10,7 +10,7 @@ public class Cliente {
     private static int idCliente;
     private String nombre;
     private String apellido;
-    private String sexo;  // Valores: M y F (Solo una letra)
+    private String sexo;  
     private String direccion;
     private int telefono;
     private String correo;

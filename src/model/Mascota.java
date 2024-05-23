@@ -2,25 +2,22 @@ package model;
 import model.Cliente;
 import model.Especie;
 import model.Raza;
-/**
- *
- * @author Alfredo
- */
+
 public class Mascota {
     
     // Atributos Mascota
-    private static int idMascota;
+    private int idMascota;
     private String nombreMascota;
     private int pesoMascota;
     private int edadMascota;
     private String sexoMascota; // Valores: M y H (Solo una letra)
 
-    //private int idCliente_FK;
-    //private int idEspecie_FK;
-    //private int idRaza_FK;
+    private int idClienteFK;
+    private int idEspecieFK;
+    private int idRazaFK;
     
     // Getters y setters Mascota
-    public static int getIdMascota() {
+    public int getIdMascota() {
         return idMascota;
     }
 
@@ -60,21 +57,28 @@ public class Mascota {
         this.sexoMascota = sexoMascota;
     }
     
-    // Getters Foraneos Mascota
+    // Getters y setters Foraneos Mascota
     public int getIdClienteFK() {
-        return Cliente.getIdCliente();
+        return idClienteFK;
     }
-    
+
+    public void setIdClienteFK(int idClienteFK) {
+        this.idClienteFK = idClienteFK;
+    }
+
     public int getIdEspecieFK() {
-        return Especie.getIdEspecie();
+        return idEspecieFK;
     }
-    
+
+    public void setIdEspecieFK(int idEspecieFK) {
+        this.idEspecieFK = idEspecieFK;
+    }
+
     public int getIdRazaFK() {
-        return Raza.getIdRaza();
+        return idRazaFK;
     }
 
-    public Object getEspecie() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setIdRazaFK(int idRazaFK) {
+        this.idRazaFK = idRazaFK;
     }
-
 }
