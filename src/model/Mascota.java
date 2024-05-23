@@ -73,4 +73,8 @@ public class Mascota {
         return Raza.getIdRaza();
     }
 
+    public Object getEspecie() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

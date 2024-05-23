@@ -4,6 +4,8 @@ import model.Mascota;
 import util.DatabaseConnection;
 
 import java.sql.*;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 
 
@@ -33,5 +35,22 @@ public class MascotaDAO {
             e.printStackTrace();
         }
     }
-    
+      
+      public void RellenarComboBox(String tabla, String valor, JComboBox combo){
+          String sql = "SELECT * FROM " + tabla;
+          Statement st;
+     
+          try
+          {
+              st = connection.createStatement();
+              ResultSet rs = st.executeQuery(sql);
+              while(rs.next())
+              {
+                  combo.addItem(rs.getString(valor));
+              }
+          }catch(SQLException e){
+              JOptionPane.showMessageDialog(null, "ERROR" + e.toString());
+          }
+      }
+ 
 }
