@@ -21,7 +21,7 @@ public class ClienteDAO {
 
     // Agregar Cliente
     public void addCliente(Cliente cliente) {
-        String sql = "INSERT INTO clientes (nombre, apellido, sexo, direccion, telefono, correo, dni ) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO cliente (nombre, apellido, sexo, direccion, telefono, correo, dni ) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, cliente.getNombre());
             stmt.setString(2, cliente.getApellido());
@@ -39,7 +39,7 @@ public class ClienteDAO {
     // Listar Cliente
     public List<Cliente> buscarClientes(String criterio, String valor) {
         List<Cliente> clientes = new ArrayList<>();
-        String sql = "SELECT * FROM clientes WHERE " + criterio + " LIKE ?";
+        String sql = "SELECT * FROM cliente WHERE " + criterio + " LIKE ?";
                
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, "%" + valor + "%");
