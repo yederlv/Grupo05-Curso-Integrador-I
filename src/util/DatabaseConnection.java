@@ -16,7 +16,7 @@ public class DatabaseConnection {
     
     private static final String URL = "jdbc:mysql://localhost:3306/dbveterinaria";
     private static final String USER = "root";
-    private static final String PASSWORD = "Admin";
+    private static final String PASSWORD = "dulce";
     private static Connection connection = null;
 
     public static Connection getConnection() {

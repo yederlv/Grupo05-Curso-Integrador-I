@@ -16,7 +16,7 @@ public class AgregarMascota extends javax.swing.JFrame {
         this.setTitle("VETERINARIA PATITAS Y COLITAS");
         this.setLocationRelativeTo(null);
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -151,55 +151,53 @@ public class AgregarMascota extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEdadActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         // Validar que todos los campos estén llenos
-        if (txtNombreMascota.getText().isEmpty() || txtEdad.getText().isEmpty() || 
-                txtPeso.getText().isEmpty() || JComboBoxSexo.getSelectedItem() == null || 
-                JComboBoxEspecie.getSelectedItem() == null || JComboBoxRaza.getSelectedItem() == null) {
-     
-                    JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
-                    
-                    return;
-          }
-   
-        try
-            {
-                Mascota mascota = new Mascota();
+        if (txtNombreMascota.getText().isEmpty() || txtEdad.getText().isEmpty()
+                || txtPeso.getText().isEmpty() || JComboBoxSexo.getSelectedItem() == null
+                || JComboBoxEspecie.getSelectedItem() == null || JComboBoxRaza.getSelectedItem() == null) {
 
-                mascota.setNombreMascota(txtNombreMascota.getText());
-                mascota.setEdadMascota(Integer.parseInt(txtEdad.getText()));
-                mascota.setPesoMascota(Integer.parseInt(txtPeso.getText()));
-                mascota.setSexoMascota(JComboBoxSexo.getSelectedItem().toString());
+            JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
 
-                Especie especie = new Especie();
-                especie.setTipoEspecie(JComboBoxEspecie.getSelectedItem().toString());
+            return;
+        }
 
-                Raza raza = new Raza();
-                raza.setTipoRaza(JComboBoxRaza.getSelectedItem().toString());
+        try {
+            Mascota mascota = new Mascota();
 
-                MascotaDAO mascotaDAO = new MascotaDAO(); 
-                mascotaDAO.addMascota(mascota);
-                
-                // Mostrar mensaje de éxito
-                 JOptionPane.showMessageDialog(this, "Mascota guardada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                 
-                 // muestra la nueva mascota en RegistrarCliente
-                 RegistrarCliente newframe = new RegistrarCliente();
-                 newframe.addMascota(mascota);
-                 newframe.setVisible(true);
-                 this.dispose();
+            mascota.setNombreMascota(txtNombreMascota.getText());
+            mascota.setEdadMascota(Integer.parseInt(txtEdad.getText()));
+            mascota.setPesoMascota(Integer.parseInt(txtPeso.getText()));
+            mascota.setSexoMascota(JComboBoxSexo.getSelectedItem().toString());
 
+            Especie especie = new Especie();
+            especie.setTipoEspecie(JComboBoxEspecie.getSelectedItem().toString());
 
-              } catch (NumberFormatException e){
-                  
-                    JOptionPane.showMessageDialog(this, "Por favor, ingrese valores numéricos válidos para Edad y Peso", "Error", JOptionPane.ERROR_MESSAGE);
-                    
-              } catch (Exception e) {
-                  
-                  JOptionPane.showMessageDialog(this, "Error al guardar la mascota: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                  
-              }
-        
+            Raza raza = new Raza();
+            raza.setTipoRaza(JComboBoxRaza.getSelectedItem().toString());
+
+            MascotaDAO mascotaDAO = new MascotaDAO();
+            mascotaDAO.addMascota(mascota);
+
+            // Mostrar mensaje de éxito
+            JOptionPane.showMessageDialog(this, "Mascota guardada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+            // muestra la nueva mascota en RegistrarCliente
+            RegistrarCliente newframe = new RegistrarCliente();
+            newframe.addMascota(mascota);
+            newframe.setVisible(true);
+            this.dispose();
+
+        } catch (NumberFormatException e) {
+
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores numéricos válidos para Edad y Peso", "Error", JOptionPane.ERROR_MESSAGE);
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(this, "Error al guardar la mascota: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
